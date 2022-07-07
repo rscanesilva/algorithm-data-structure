@@ -10,12 +10,13 @@ public class CustomDoublyLinkedList<E> {
     private int size;
 
     public void add(E e) {
-        Node<E> currentLast = last;
+        Node<E> currentLast = this.last;
         Node<E> newNode = new Node<>(e, currentLast, null);
         if (currentLast == null) first = newNode;
         else currentLast.setNext(newNode);
         last = newNode;
         this.size++;
+
     }
 
     public E get(int index) {
@@ -24,55 +25,35 @@ public class CustomDoublyLinkedList<E> {
 
     public boolean remove(Object o) {
         if (o == null) {
-            for (Node<E> x = first; x != null; x = x.getNext()) {
+            for (var x = first; x != null; x = x.getNext()){
                 if (x.getItem() == null) {
                     unlink(x);
                     return true;
                 }
             }
         } else {
-            for (Node<E> x = first; x != null; x = x.getNext()) {
+            for (var x = first; x != null; x = x.getNext()){
                 if (o.equals(x.getItem())) {
                     unlink(x);
                     return true;
                 }
             }
         }
+        this.size--;
         return false;
     }
 
     public E put(int index, E element) {
-        Node<E> x = getNode(index);
-        E oldVal = x.getItem();
-        x.setItem(element);
-        return oldVal;
-    }
-
-    private Node<E> getNode(int index) {
-        isValidIndex(index);
-        if (index <= (size>>1)) {
-            var x = first;
-            for (var i=0; i<index; i++) {
-                x = x.getNext();
-            }
-            return x;
-        } else {
-            var x = last;
-            for (var i= size-1; i > index; i--) {
-                x = x.getPrev();
-            }
-            return x;
-        }
-    }
-
-    private void isValidIndex(int index) {
-        if (index < 0 || index >= size) throw new ArrayIndexOutOfBoundsException(String.format("index %s not found", index));
+        var node = getNode(index);
+        var oldValue = node.getItem();
+        node.setItem(element);
+        return oldValue;
     }
 
     private void unlink(Node<E> x) {
         E element = x.getItem();
-        Node<E> next = x.getNext();
-        Node<E> prev = x.getPrev();
+        var next = x.getNext();
+        var prev = x.getPrev();
 
         if (prev == null) {
             first = next;
@@ -84,11 +65,32 @@ public class CustomDoublyLinkedList<E> {
         if (next == null) {
             last = prev;
         } else {
-            next.setNext(prev);
+            next.setPrev(prev);
             x.setNext(null);
         }
-
-        x.setItem(null);
-        size--;
     }
+
+    private Node<E> getNode(int index) {
+        isValidIndex(index);
+        Node<E> ref;
+        if (index <= (size/2)){
+            ref = first;
+            for (var i=0; i<index; i++) {
+                ref = ref.getNext();
+            }
+        } else {
+            ref = last;
+            for (int i = size-1; i > index; i--) {
+                ref = ref.getPrev();
+            }
+        }
+        return ref;
+    }
+
+    private void isValidIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException(String.format("Index %s invalid", index));
+        }
+    }
+
 }
