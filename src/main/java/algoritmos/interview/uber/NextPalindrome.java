@@ -5,9 +5,11 @@ package algoritmos.interview.uber;
 // Example Output: 1001
 // Main class should be named 'Solution'
 /*
-   1221
-   1222 - 12 22
-   21 < 22
+   input -> 1221
+   nextValue -> 1222
+   return -> 1331
+
+   12 22
 */
 class NextPalindrome {
 
@@ -15,11 +17,11 @@ class NextPalindrome {
         System.out.println(getNextPalindrome(12320));
     }
 
-    public static int getNextPalindrome(Integer i) {
-        ++i;
-        if (i <= 10) return 11;
+    public static int getNextPalindrome(Integer n) {
+        ++n;
+        if (n <= 10) return 11;
 
-        String input = i.toString();
+        String input = n.toString();
         String sub1;
         String sub2;
         String center = "";
@@ -33,17 +35,16 @@ class NextPalindrome {
             center = input.substring((input.length() / 2), (input.length() / 2) + 1);
         }
 
-        var n1 = Integer.parseInt(inverse(sub1));
-        var n2 = Integer.parseInt(sub2);
+        var firstInverseInt = Integer.parseInt(inverse(sub1));
+        var lastInt = Integer.parseInt(sub2);
 
-        if (n1 == n2) {
-            return i;
-        } else if (n1 > n2) {
-            return Integer.parseInt(sub1 + center + n1);
+        if (firstInverseInt == lastInt) {
+            return n;
+        } else if (firstInverseInt > lastInt) {
+            return Integer.parseInt(sub1 + center + firstInverseInt);
         } else {
-            Integer newValue = Integer.parseInt(sub1);
-            ++newValue;
-            return Integer.parseInt(newValue + center + inverse(newValue.toString()));
+            var newFirstInt = Integer.parseInt(sub1) + 1;
+            return Integer.parseInt(newFirstInt + center + inverse(Integer.toString(newFirstInt)));
         }
     }
 
