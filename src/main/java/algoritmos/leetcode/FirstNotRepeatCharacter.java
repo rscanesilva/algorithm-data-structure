@@ -1,4 +1,4 @@
-package algoritmos;
+package algoritmos.leetcode;
 
 import java.util.HashMap;
 

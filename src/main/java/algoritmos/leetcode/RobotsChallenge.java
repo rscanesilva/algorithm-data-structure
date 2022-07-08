@@ -1,4 +1,4 @@
-package algoritmos;
+package algoritmos.leetcode;
 
 public class RobotsChallenge {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class RobotsChallenge {
             for ( var col = 0; col < grid[0].length; col++ ) {
                 if (grid[row][col] == 1) {
                     rowRobots++;
-                    if (lastUsedIndex < col - 1 && col > 0 && grid[row-1][col-1] == 1) {
+                    if (lastUsedIndex < col - 1 && grid[row-1][col-1] == 1) {
                         lastUsedIndex = col - 1;
                     } else if ( lastUsedIndex < col && grid[row-1][col] == 1) {
                         lastUsedIndex = col;

@@ -1,5 +1,7 @@
 package algoritmos.interview.uber;
 
+import algoritmos.ReverseString;
+
 // Write a function that takes an integer as an input and return the next larger number that is a palindrome.
 // Example Input: 1000
 // Example Output: 1001
@@ -13,52 +15,28 @@ package algoritmos.interview.uber;
 */
 class NextPalindrome {
 
-    public static void main(String[] args) {
-        System.out.println(getNextPalindrome(12320));
-    }
-
     public static int getNextPalindrome(Integer n) {
+        if (n<=10) return 11;
         ++n;
-        if (n <= 10) return 11;
+        String sub1, sub2, center="", nStr= n.toString();
+        sub1 = nStr.substring(0, nStr.length()/2);
 
-        String input = n.toString();
-        String sub1;
-        String sub2;
-        String center = "";
-
-        if (input.length() % 2 == 0) {
-            sub1 = input.substring(0, input.length() / 2);
-            sub2 = input.substring(input.length() / 2);
+        if (nStr.length() % 2 == 0) {
+            sub2 = nStr.substring(nStr.length()/2);
         } else {
-            sub1 = input.substring(0, (input.length() / 2));
-            sub2 = input.substring((input.length() / 2) + 1);
-            center = input.substring((input.length() / 2), (input.length() / 2) + 1);
+            sub2 = nStr.substring((nStr.length()/2)+1);
+            center = nStr.substring(nStr.length()/2, (nStr.length()/2)+1);
         }
 
-        var firstInverseInt = Integer.parseInt(inverse(sub1));
-        var lastInt = Integer.parseInt(sub2);
+        String reverseSub1 = ReverseString.reverse(sub1);
 
-        if (firstInverseInt == lastInt) {
+        if (reverseSub1.equals(sub2)) {
             return n;
-        } else if (firstInverseInt > lastInt) {
-            return Integer.parseInt(sub1 + center + firstInverseInt);
+        } else if (Integer.parseInt(reverseSub1) > Integer.parseInt(sub2)) {
+            return  Integer.parseInt(sub1+center+reverseSub1);
         } else {
-            var newFirstInt = Integer.parseInt(sub1) + 1;
-            return Integer.parseInt(newFirstInt + center + inverse(Integer.toString(newFirstInt)));
+            Integer newFirstInt = Integer.parseInt(sub1)+1;
+            return Integer.parseInt(newFirstInt + center + ReverseString.reverse(newFirstInt.toString()));
         }
-    }
-
-    public static String inverse(String text) {
-        byte[] val = text.getBytes();
-        int count = text.length();
-
-        int n = count - 1;
-        for (int j = (n - 1) >> 1; j >= 0; j--) {
-            int k = n - j;
-            byte cj = val[j];
-            val[j] = val[k];
-            val[k] = cj;
-        }
-        return new String(val);
     }
 }
