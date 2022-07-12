@@ -1,4 +1,4 @@
-package algoritmos;
+package algoritmos.sort;
 
 import java.nio.charset.StandardCharsets;
 

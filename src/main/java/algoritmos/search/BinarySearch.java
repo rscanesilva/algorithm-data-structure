@@ -1,4 +1,4 @@
-package algoritmos;
+package algoritmos.search;
 
 import java.util.Scanner;
 
@@ -18,12 +18,8 @@ public class BinarySearch {
     }
 
     private static void binarySearch(int[] list, Scanner read) {
-        int target = read.nextInt();
+        int target = read.nextInt(), ini = 0, end = list.length - 1, middle, numberOfOpertarions = 0;
         boolean find = false;
-        int ini = 0;
-        int end = list.length - 1;
-        int middle = 0;
-        int numberOfOpertarions = 0;
         while (ini <= end) {
            numberOfOpertarions++;
            middle = (ini + end) / 2;

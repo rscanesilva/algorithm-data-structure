@@ -1,6 +1,6 @@
 package algoritmos.interview.uber;
 
-import algoritmos.ReverseString;
+import algoritmos.sort.ReverseString;
 
 // Write a function that takes an integer as an input and return the next larger number that is a palindrome.
 // Example Input: 1000
