@@ -7,6 +7,6 @@ public class ReversStringTest {
 
     @Test
     public void reverseTest() {
-        Assertions.assertEquals("dbca", ReverseString.reverse("abcd"));
+        Assertions.assertEquals("dcba", ReverseString.reverse("abcd"));
     }
 }
